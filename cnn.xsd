@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.projeto5.pt/CNN">
+
+	<xs:element name="class">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element maxOccurs="unbounded" ref="student" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="student">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="name">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="10" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="age">
+					<xs:simpleType>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="0" />
+							<xs:maxInclusive value="120" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+
+			<xs:attribute name="id" use="required" type="xs:string">
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

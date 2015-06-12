@@ -87,7 +87,7 @@
 					<!-- will main class to MANIFEST.MF -->
 					<archive>
 						<manifest>
-							<mainClass>RunWeb-Crawler</mainClass>
+							<mainClass>RunWebCrawler</mainClass>
 						</manifest>
 					</archive>
 					<!-- will assembly the exploded dependencies within our uber jar -->
