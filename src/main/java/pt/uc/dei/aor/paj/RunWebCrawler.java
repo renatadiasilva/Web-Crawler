@@ -46,23 +46,18 @@ public class RunWebCrawler {
 			p.publish(stringXML);
 			
 			System.out.print("1- continua; 2 - termina? ");
-			int answer = reader.read();
+			String answer = reader.readLine();
 			
-			if (answer == 2) {
+			if (answer.equals("2")) {
 				// terminar subscribers
 				p.publish("stop");
 			
-				// terminar publisher
-				p.publish("quit");
-				
-				//Exit
+				// terminar publisher				
 				System.out.println("Exiting...");
 				reader.close();
 				System.out.println("Goodbye!");
-
 				stop = true;
 			}
-
 		}
 
 		// para stats é igual
