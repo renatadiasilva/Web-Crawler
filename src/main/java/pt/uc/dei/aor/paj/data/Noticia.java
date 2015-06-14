@@ -296,4 +296,12 @@ public class Noticia {
         this.categoria = value;
     }
 
+    @Override
+    public String toString() {
+    	return "Autor: " + this.autor + "\nCorpo: " + this.corpo + "\nData: " + this.data + "\nTitulo: " + 
+    			this.titulo + "\nUrl: " + this.urlPagina +  "\nCategoria: " + this.categoria + "\nDescrição: "  
+    			+ this.descricao + "\nVideo: " + this.video +  "\nImagem: " + this.imagem 
+    			+ "\n----------------------------------------";
+    }
+
 }
