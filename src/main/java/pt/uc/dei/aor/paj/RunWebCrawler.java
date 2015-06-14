@@ -1,7 +1,9 @@
 package pt.uc.dei.aor.paj;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -15,9 +17,12 @@ public class RunWebCrawler {
 
 	public static void main(String[] args) throws Exception {
 
-		Publisher p = new Publisher();
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		Boolean stop = false;
 //		for (int i = 0; i < 10; i++) {
+		while (!stop) {
 			//chamar o parser -> dá origem ao XML
+			Publisher p = new Publisher();
 			Crawler c = new Crawler();
 			Noticias noticias = c.doCrawler();
 
@@ -39,7 +44,26 @@ public class RunWebCrawler {
 
 			//passar xml ou a string como argumento
 			p.publish(stringXML);
-//		}
+			
+			System.out.print("1- continua; 2 - termina? ");
+			int answer = reader.read();
+			
+			if (answer == 2) {
+				// terminar subscribers
+				p.publish("stop");
+			
+				// terminar publisher
+				p.publish("quit");
+				
+				//Exit
+				System.out.println("Exiting...");
+				reader.close();
+				System.out.println("Goodbye!");
+
+				stop = true;
+			}
+
+		}
 
 		// para stats é igual
 	}
@@ -47,7 +71,7 @@ public class RunWebCrawler {
 	public static String outputNameFile() {
 
 		Calendar now = new GregorianCalendar();
-		String filename = "output";
+		String filename = "..\\src\\main\\resources\\output";
 		filename += now.get(Calendar.YEAR);
 		filename += now.get(Calendar.MONTH);
 		filename += now.get(Calendar.DAY_OF_MONTH);
