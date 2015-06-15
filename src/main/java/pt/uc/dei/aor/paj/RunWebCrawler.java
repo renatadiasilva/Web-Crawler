@@ -39,11 +39,13 @@ public class RunWebCrawler {
 
 			//passar XML para String
 			String stringXML = TransformXML.convertXMLFileToString(filename);
-
-			System.out.println(stringXML);
+			System.out.println("XML transformado em String.");
+			
+//			System.out.println(stringXML);
 
 			//passar xml ou a string como argumento
 			p.publish(stringXML);
+			System.out.println("Mensagem Enviada.");
 			
 			System.out.print("1- continua; 2 - termina? ");
 			String answer = reader.readLine();
@@ -67,13 +69,15 @@ public class RunWebCrawler {
 
 		Calendar now = new GregorianCalendar();
 		String filename = "..\\src\\main\\resources\\output";
-		filename += now.get(Calendar.YEAR);
-		filename += now.get(Calendar.MONTH);
-		filename += now.get(Calendar.DAY_OF_MONTH);
-		filename += now.get(Calendar.HOUR_OF_DAY);
-		filename += now.get(Calendar.MINUTE);
-		filename += now.get(Calendar.SECOND);
+		filename += "_"+now.get(Calendar.YEAR);
+		int mes = now.get(Calendar.MONTH)+1;
+		filename += "_"+mes+"";
+		filename += "_"+now.get(Calendar.DAY_OF_MONTH);
+		filename += "_"+now.get(Calendar.HOUR_OF_DAY);
+		filename += "_"+now.get(Calendar.MINUTE);
+		filename += "_"+now.get(Calendar.SECOND);
 		filename += ".xml";
+		System.out.println("NOME FICHEIRO: "+filename);
 		return filename;
 		
 	}
