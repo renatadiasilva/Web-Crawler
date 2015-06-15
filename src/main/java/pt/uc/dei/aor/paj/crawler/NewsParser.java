@@ -46,7 +46,6 @@ public class NewsParser {
 	private static ArrayList<String> listaLinks = new ArrayList<String>();
 
 	public NoticiasType doCrawler() {
-		
 		noticiasType = new NoticiasType();
 		getLinks();
 //		for (String s : listaLinks)

@@ -14,16 +14,15 @@ import javax.xml.bind.Unmarshaller;
 import pt.uc.dei.aor.paj.data.NoticiaType;
 import pt.uc.dei.aor.paj.data.NoticiasType;
 
-
 public class JAXBHandler {
 	
 	// Export
-	public static void marshal(Noticias news, File selectedFile)
+	public static void marshal(NoticiasType news, File selectedFile)
 			throws IOException, JAXBException {
         JAXBContext context;
         BufferedWriter writer = null;
         writer = new BufferedWriter(new FileWriter(selectedFile));
-        context = JAXBContext.newInstance(Noticias.class);
+        context = JAXBContext.newInstance(NoticiasType.class);
         Marshaller m = context.createMarshaller();
         m.setProperty(Marshaller.JAXB_ENCODING, "US-ASCII");
         
@@ -55,11 +54,11 @@ public class JAXBHandler {
     }
 	
 	// Import
-    public static Noticias unmarshal(File importFile) throws JAXBException {
-        Noticias news = new Noticias();
-        JAXBContext context = JAXBContext.newInstance(Noticias.class);
+    public static NoticiasType unmarshal(File importFile) throws JAXBException {
+        NoticiasType news = new NoticiasType();
+        JAXBContext context = JAXBContext.newInstance(NoticiasType.class);
         Unmarshaller um = context.createUnmarshaller();
-        news = (Noticias) um.unmarshal(importFile);
+        news = (NoticiasType) um.unmarshal(importFile);
         return news;
     }
 
