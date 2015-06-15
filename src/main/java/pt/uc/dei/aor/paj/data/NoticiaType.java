@@ -14,6 +14,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -68,6 +69,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "texto",
     "mediaurl"
 })
+@XmlRootElement(name = "noticia")
 public class NoticiaType {
 
     @XmlElement(required = true)
@@ -308,4 +310,11 @@ public class NoticiaType {
         this.local = value;
     }
 
+    @Override
+    public String toString() {
+    	return "Autor: " + this.autor + "\nCorpo: " + this.highlights + "\nData: " + this.data + "\nTitulo: " + 
+    			this.titulo + "\nUrl: " + this.url +  "\nDescrição: "  
+    			+ this.texto + "\nMedia: " + this.mediaurl 
+    			+ "\n----------------------------------------";
+    }
 }

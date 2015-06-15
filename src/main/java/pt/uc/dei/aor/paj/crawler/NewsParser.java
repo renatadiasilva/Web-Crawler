@@ -58,7 +58,8 @@ public class NewsParser {
 				noticiasType.getNoticia().add(n);
 			}
 			// escrever XML
-			System.out.println(noticiasType);
+//			System.out.println(noticiasType);
+			
 			return noticiasType;
 		} catch (Exception e) {
 			e.printStackTrace();
