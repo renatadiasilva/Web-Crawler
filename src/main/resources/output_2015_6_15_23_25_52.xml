@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="US-ASCII" standalone="yes"?>
 <?xml-stylesheet type="text/xsl" href="text.xsl"?>
 <noticias>
+    <noticia local="middle-east">
+        <url>http://edition.cnn.com/2015/06/15/middleeast/yemen-aqap-leader-killed/index.html</url>
+        <titulo>Top al Qaeda leader reported killed in Yemen</titulo>
+        <data>2015-06-15T23:21:00.000+01:00</data>
+        <autor>By Dana Ford, CNN</autor>
+        <highlights>Nasir al-Wuhayshi is believed to have died last week in Yemen's Hadramout region</highlights>
+        <highlights>He was the No. 2 leader of al Qaeda globally and the head of AQAP</highlights>
+        <highlights>"If it's true, it is a significant blow. Leadership matters," a U.S. senator says about the reports of al-Wuhayshi's death</highlights>
+        <texto>(CNN)Top al Qaeda in the Arabian Peninsula (AQAP) leader Nasir al-Wuhayshi was killed Friday in a suspected U.S. drone strike in Yemen's Hadramout region, according to two Yemeni national security officials.Tweets from known AQAP operatives also speak of al-Wuhayshi having been martyred, and of AQAP military commander Qasm al-Rimi (also known as Abu Hureira al-Sanaani) having been appointed as al-Wuhayshi's replacement.U.S. authorities are looking to confirm al-Wuhayshi's death, according to one U.S. intelligence official.Al-Wuhayshi was the No. 2 leader of al Qaeda globally and the head of AQAP. In a video that surfaced in April last year, the man who was known as al Qaeda's crown prince appeared brazenly out in the open, greeting followers.In a speech to the group, al-Wuhayshi makes it clear that he's going after the United States, saying: "We must eliminate the cross. ... The bearer of the cross is America!"The video showed what looked like the largest and most dangerous gathering of al Qaeda in years.Originally from Yemen, al-Wuhayshi assumed command of AQAP in 2009. He'd escaped a Yemeni prison in 2006, and had previously worked as a personal secretary for Osama bin Laden."If it's true, it is a significant blow. Leadership matters," Sen. Angus King, an independent of Maine, told CNN.King said the death would hurt al Qaeda, but stressed the group still poses a threat."This is a long, difficult struggle that we're engaged in, and it's going to require all kinds of tools," King said.CNN's Hamdi Alkhshali and journalist Hakim Almasmari contributed to this report.</texto>
+        <mediaurl>http://i2.cdn.turner.com/cnnnext/dam/assets/150615170538-al-qaeda-leader-dead-lead-segment-00001003-large-169.jpg</mediaurl>
+    </noticia>
     <noticia local="us">
         <url>http://edition.cnn.com/2015/06/15/us/washington-rachel-dolezal-naacp/index.html</url>
         <titulo>Rachel Dolezal resigns, according to letter on NAACP Facebook page</titulo>

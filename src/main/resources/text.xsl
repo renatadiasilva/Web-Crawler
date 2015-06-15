@@ -15,6 +15,11 @@
 							<xsl:value-of select="url"/>
 						</xsl:attribute>
 					
+						<!-- Local -->
+						<div style="color:#555">
+							<p><xsl:value-of select="local" /></p>
+						</div>
+					
 						<!-- Headline -->
 						<div style="color:#555">
 							<p><xsl:value-of select="titulo" /></p>
@@ -38,7 +43,9 @@
 						
 						<!-- Descricao -->
 						<div style="font-size: 11pt;text-align:justify;color:#333">
-							<p><xsl:for-each select="highlights" /></p>							
+							<xsl:for-each select="highlights">
+								<p><xsl:value-of select="highlights" /><br/></p>
+							</xsl:for-each>							
 						</div>
 
 						<!-- Corpo -->
