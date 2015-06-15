@@ -11,17 +11,17 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.PropertyException;
 import javax.xml.bind.Unmarshaller;
 
-import pt.uc.dei.aor.paj.data.NoticiasType;
+import pt.uc.dei.aor.paj.data.Noticias;
 
 public class JAXBHandler {
 	
 	// Export
-	public static void marshal(NoticiasType news, File selectedFile)
+	public static void marshal(Noticias news, File selectedFile)
 			throws IOException, JAXBException {
         JAXBContext context;
         BufferedWriter writer = null;
         writer = new BufferedWriter(new FileWriter(selectedFile));
-        context = JAXBContext.newInstance(NoticiasType.class);
+        context = JAXBContext.newInstance(Noticias.class);
         Marshaller m = context.createMarshaller();
         m.setProperty(Marshaller.JAXB_ENCODING, "US-ASCII");
         
@@ -40,11 +40,11 @@ public class JAXBHandler {
     }
 	
 	// Import
-    public static NoticiasType unmarshal(File importFile) throws JAXBException {
-        NoticiasType news = new NoticiasType();
-        JAXBContext context = JAXBContext.newInstance(NoticiasType.class);
+    public static Noticias unmarshal(File importFile) throws JAXBException {
+        Noticias news = new Noticias();
+        JAXBContext context = JAXBContext.newInstance(Noticias.class);
         Unmarshaller um = context.createUnmarshaller();
-        news = (NoticiasType) um.unmarshal(importFile);
+        news = (Noticias) um.unmarshal(importFile);
         return news;
     }
 

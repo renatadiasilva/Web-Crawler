@@ -23,8 +23,8 @@ public class RunWebCrawler {
 		while (!stop) {
 			//chamar o parser -> dá origem ao XML
 			Publisher p = new Publisher();
-			NewsParser c = new NewsParser();
-			NoticiasType noticias = c.doCrawler();
+			Crawler c = new Crawler();
+			Noticias noticias = c.doCrawler();
 
 			String filename = "output.xml";
 			//passa para XML
