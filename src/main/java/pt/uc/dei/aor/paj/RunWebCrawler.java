@@ -26,6 +26,9 @@ public class RunWebCrawler {
 			Crawler c = new Crawler();
 			Noticias noticias = c.doCrawler();
 
+			System.out.println("TESTE!!!!!!!!!!!!!!!!!! - RunCrawler");
+			
+			
 			String filename = "output.xml";
 			//passa para XML
 			try {
@@ -33,7 +36,9 @@ public class RunWebCrawler {
 				JAXBHandler.marshal(noticias, new File (filename));
 				System.out.println("Marshall ok");//RETIRAR
 			} catch (IOException | JAXBException e) {
+				System.out.println("Não está a fazer Marshall!!!!!");
 				System.out.println(e.getMessage());
+				e.printStackTrace();
 				System.exit(1);
 			}
 

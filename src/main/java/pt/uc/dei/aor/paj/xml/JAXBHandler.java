@@ -11,7 +11,9 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.PropertyException;
 import javax.xml.bind.Unmarshaller;
 
-import pt.uc.dei.aor.paj.data.Noticias;
+import pt.uc.dei.aor.paj.data.NoticiaType;
+import pt.uc.dei.aor.paj.data.NoticiasType;
+
 
 public class JAXBHandler {
 	
@@ -28,15 +30,28 @@ public class JAXBHandler {
         try{
             m.setProperty("com.sun.xml.internal.bind.xmlHeaders",
             		"<?xml-stylesheet type=\"text/xsl\" href=\"text.xsl\"?>\n");
+            
+            System.out.println("PONTO 1! JAXBHandler");
         }
         catch(PropertyException pex)
         {
             m.setProperty("com.sun.xml.bind.xmlHeaders",
             		"<?xml-stylesheet type=\"text/xsl\" href=\"text.xsl\"?>\n");
+            System.out.println("PONTO 2! JAXBHandler");
         }
+        for(NoticiaType n: news.getNoticia()){
+        	System.out.println(n);
+        }
+        System.out.println("JAXBHandler");
+        
         m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+        System.out.println("JAXBHandler  teste marshal 1");
+        
         m.marshal(news, writer);
+        System.out.println("JAXBHandler  teste marshal 2");
         writer.close();
+        
+        
     }
 	
 	// Import
