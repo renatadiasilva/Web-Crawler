@@ -125,6 +125,8 @@ public class NewsParser {
 			// ir buscar atributos da noticia
 			Element seccao = doc.getElementById(seccaoString);
 			Elements textStrings = seccao.select(paragrafosString);
+			//url
+			n.setUrl(link);
 			// titulo
 			String titulo = doc.select(tituloString).first().text();
 			n.setTitulo(titulo);
