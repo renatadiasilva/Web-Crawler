@@ -9,7 +9,6 @@
 package pt.uc.dei.aor.paj.data;
 
 import java.util.ArrayList;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -74,23 +73,23 @@ public class NoticiaType {
 
     @XmlElement(required = true)
     @XmlSchemaType(name = "anyURI")
-    protected String url;
+    protected String url = "URL not defined";
     @XmlElement(required = true)
-    protected String titulo;
+    protected String titulo = "Title not defined";
     @XmlElement(required = true)
     @XmlSchemaType(name = "dateTime")
     protected XMLGregorianCalendar data;
     @XmlElement(required = true)
-    protected String autor;
-    @XmlElement(required = true)
+    protected String autor = "Author not defined";
+    @XmlElement(required = false)
     protected ArrayList<String> highlights = new ArrayList<String>();
     @XmlElement(required = true)
-    protected String texto;
+    protected String texto = "Text-boby not defined";
     @XmlElement(required = false)
     @XmlSchemaType(name = "anyURI")
-    protected String mediaurl;
+    protected String mediaurl = "Image not defined";
     @XmlAttribute(name = "local")
-    protected String local;
+    protected String local = "Local not defined";
 
     /**
      * Gets the value of the url property.
