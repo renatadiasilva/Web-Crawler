@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
+
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -13,10 +14,17 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import pt.uc.dei.aor.paj.data.*;
+import pt.uc.dei.aor.paj.xml.TransformXML;
 
 public class NewsParser {
+
+	private static final Logger log = LoggerFactory.getLogger(TransformXML.class);
+
+	private boolean error;
 
 	// Variaveis JSOUP
 	private static Document document;
@@ -36,25 +44,29 @@ public class NewsParser {
 
 	// faz o crawling
 	public NoticiasType doCrawler() {
+		error = false;
 		noticiasType = new NoticiasType();
-		getLinks();
+		error = getLinks();
 
-		try {
-			for (String s : listaLinks) {
-				document = Jsoup.connect(s).get();
-				NoticiaType n = constroiNoticia(s);
-				noticiasType.getNoticia().add(n);
+		if (!error) {
+			try {
+				for (String s : listaLinks) {
+					document = Jsoup.connect(s).get();
+					NoticiaType n = constroiNoticia(s);
+					noticiasType.getNoticia().add(n);
+				}
+
+				return noticiasType;
+			} catch (Exception e) {
+				error = true;
+				log.error("Error: "+e.getMessage());
 			}
-			
-			return noticiasType;
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
 		return null;
 	}
 
 	// links
-	private static void getLinks() {
+	private static boolean getLinks() {
 		try {
 			// obter documento html
 			document = Jsoup.connect("http://edition.cnn.com/").get();
@@ -75,8 +87,10 @@ public class NewsParser {
 
 				}
 			}
+			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error("Error: "+e.getMessage());
+			return false;
 		}
 	}
 
@@ -109,9 +123,9 @@ public class NewsParser {
 			// data e autor
 			Element metadata = doc.select("div.metadata").first();
 			String data = metadata.select(dataString).text();
-			
+
 			XMLGregorianCalendar datafinal = stringToXMLGregorianCalendar(stringDateConvert(data));
-			
+
 			String autor = metadata.select(autorString).text();
 			if (autor.isEmpty()) autor = "No author.";
 			n.setAutor(autor);
@@ -160,11 +174,11 @@ public class NewsParser {
 			}
 
 		} catch (Exception e2) {
-			e2.printStackTrace();
+			log.error("Error: "+e2.getMessage());
 		}
 		return n;
 	}
-	
+
 	//set date
 	private static XMLGregorianCalendar stringToXMLGregorianCalendar(String s) throws ParseException, DatatypeConfigurationException{
 		XMLGregorianCalendar result = null;
@@ -180,12 +194,12 @@ public class NewsParser {
 		result = DatatypeFactory.newInstance().newXMLGregorianCalendar(gregorianCalendar);
 		return result;
 	}
-	
+
 
 	// date format CNN: Updated 1657 GMT (2357 HKT) June 12, 2015
 	private static String stringDateConvert(String date) {
-		
-	    //divide a string pelos espacos em branco
+
+		//divide a string pelos espacos em branco
 		String [] datas = date.split("\\s+");
 		String month = "";
 		if(datas[5].equals("January"))month="01";
@@ -200,10 +214,18 @@ public class NewsParser {
 		if(datas[5].equals("October"))month="10";
 		if(datas[5].equals("November"))month="11";
 		if(datas[5].equals("December"))month="12";
-		
+
 		String datafinal = datas[7]+"-"+month+"-"+datas[6].substring(0,datas[6].length()-1)+"T"+
 				datas[1].substring(0, 2)+":"+datas[1].substring(2)+":00";
-		
+
 		return datafinal;
+	}
+
+	public boolean isError() {
+		return error;
+	}
+
+	public void setError(boolean error) {
+		this.error = error;
 	}
 }

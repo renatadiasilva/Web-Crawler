@@ -11,7 +11,12 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class TransformXML {
+	
+	private static final Logger log = LoggerFactory.getLogger(TransformXML.class);
 	
 	//XML to String
 	public static String convertXMLFileToString(String fileName) 
@@ -26,7 +31,7 @@ public class TransformXML {
 			return stw.toString(); 
 		} 
 		catch (Exception e) { 
-			e.printStackTrace(); 
+			log.error("Error: "+e.getMessage());
 		} 
 		return null; 
 	}
