@@ -19,21 +19,21 @@ public class RunWebCrawler {
 
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		Boolean stop = false;
-//		for (int i = 0; i < 10; i++) {
+
 		while (!stop) {
 			//chamar o parser -> dá origem ao XML
-			Publisher p = new Publisher();
 			NewsParser c = new NewsParser();
+			System.out.println("Começando o parser.");
 			NoticiasType noticias = c.doCrawler();
+			System.out.println("Parser feito.");
 
 			String filename = "output.xml";
 			//passa para XML
 			try {
 				filename = outputNameFile();
 				JAXBHandler.marshal(noticias, new File (filename));
-				System.out.println("Marshall feito");
+				System.out.println("Marshall feito.");
 			} catch (IOException | JAXBException e) {
-				System.out.println(e.getMessage());
 				e.printStackTrace();
 				System.exit(1);
 			}
@@ -43,6 +43,7 @@ public class RunWebCrawler {
 			System.out.println("XML transformado em String.");
 			
 			//passar string para o topic
+			Publisher p = new Publisher();
 			p.publish(stringXML);
 			System.out.println("Mensagem Enviada.");
 			

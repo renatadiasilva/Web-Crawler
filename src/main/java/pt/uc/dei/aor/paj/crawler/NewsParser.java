@@ -39,6 +39,7 @@ public class NewsParser {
 	private static String imgString = "img.media__image";
 
 	// variaveis JAXB
+//	private static JAXBContext jaxbcontext;
 	//	private JAXBElement<Object> objectWrapper;
 	private static NoticiasType noticiasType;
 	private static ArrayList<String> listaLinks = new ArrayList<String>();
