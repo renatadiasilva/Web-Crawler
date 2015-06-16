@@ -73,23 +73,23 @@ public class NoticiaType {
 
     @XmlElement(required = true)
     @XmlSchemaType(name = "anyURI")
-    protected String url = "URL not defined";
+    protected String url;
     @XmlElement(required = true)
-    protected String titulo = "Title not defined";
+    protected String titulo;
     @XmlElement(required = true)
     @XmlSchemaType(name = "dateTime")
     protected XMLGregorianCalendar data;
     @XmlElement(required = true)
-    protected String autor = "Author not defined";
+    protected String autor;
     @XmlElement(required = false)
     protected ArrayList<String> highlights = new ArrayList<String>();
     @XmlElement(required = true)
-    protected String texto = "Text-boby not defined";
+    protected String texto;
     @XmlElement(required = false)
     @XmlSchemaType(name = "anyURI")
-    protected String mediaurl = "Image not defined";
+    protected String mediaurl;
     @XmlAttribute(name = "local")
-    protected String local = "Local not defined";
+    protected String local;
 
     /**
      * Gets the value of the url property.

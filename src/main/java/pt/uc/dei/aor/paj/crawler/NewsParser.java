@@ -99,9 +99,11 @@ public class NewsParser {
 			Element seccao = doc.getElementById(seccaoString);
 			Elements textStrings = seccao.select(paragrafosString);
 			//url
+			if (link.isEmpty()) link = "No link.";
 			n.setUrl(link);
 			// titulo
 			String titulo = doc.select(tituloString).first().text();
+			if (titulo.isEmpty()) titulo = "No title.";
 			n.setTitulo(titulo);
 			// constroi texto da noticia
 			String textoNoticia = "";
@@ -109,6 +111,7 @@ public class NewsParser {
 				if (!e1.ownText().isEmpty())
 					textoNoticia += e1.text();
 			}
+			if (textoNoticia.isEmpty()) textoNoticia = "No text.";
 			n.setTexto(textoNoticia);
 			// data e autor
 			Element metadata = doc.select("div.metadata").first();
@@ -117,6 +120,7 @@ public class NewsParser {
 			XMLGregorianCalendar datafinal = stringToXMLGregorianCalendar(stringDateConvert(data));
 			
 			String autor = metadata.select(autorString).text();
+			if (autor.isEmpty()) autor = "No author.";
 			n.setAutor(autor);
 			n.setData(datafinal);
 			// set local
@@ -129,7 +133,7 @@ public class NewsParser {
 			} else if (link.contains("/china/")) {
 				n.setLocal("china");
 			} else if (link.contains("/middleeast/")) {
-				n.setLocal("middle-east");
+				n.setLocal("middleeast");
 			} else if (link.contains("/africa/")) {
 				n.setLocal("africa");
 			} else if (link.contains("/americas/")) {
@@ -141,12 +145,14 @@ public class NewsParser {
 				Element imgUrlElement = media.select(imgString).first();
 				// ver se tem imagem grande
 				String imgUrl;
-				if (imgUrlElement.hasAttr("data-src-large")) {
-					imgUrl = imgUrlElement.attr("data-src-large");
-				} else {
-					imgUrl = imgUrlElement.attr("src");
+				if (imgUrlElement != null) {
+					if (imgUrlElement.hasAttr("data-src-large")) {
+						imgUrl = imgUrlElement.attr("data-src-large");
+					} else {
+						imgUrl = imgUrlElement.attr("src");
+					}
+					n.setMediaurl(imgUrl);
 				}
-				n.setMediaurl(imgUrl);
 			}
 
 			// highlights
