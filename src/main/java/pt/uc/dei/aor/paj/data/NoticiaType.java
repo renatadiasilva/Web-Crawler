@@ -283,11 +283,4 @@ public class NoticiaType {
         this.local = value;
     }
 
-    @Override
-    public String toString() {
-    	return "Autor: " + this.autor + "\nCorpo: " + this.highlights + "\nData: " + this.data + "\nTitulo: " + 
-    			this.titulo + "\nUrl: " + this.url +  "\nDescrição: "  
-    			+ this.texto + "\nMedia: " + this.mediaurl 
-    			+ "\n----------------------------------------";
-    }
 }

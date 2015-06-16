@@ -15,26 +15,30 @@ public class Publisher {
 	
 	private boolean error = false;
 
+	// inicializa
 	public Publisher() {
 		try {
 			this.cf = InitialContext.doLookup("jms/RemoteConnectionFactory");
 			this.t = InitialContext.doLookup("jms/topic/PlayTopic");
 		} catch (NamingException e) {
 			error = true;
-//			e.printStackTrace();
+			e.printStackTrace();
 		}
 	}
 
+	// envia mensagem aos subscribers
 	public void publish(String textToSend) {
 		try (JMSContext jcontext = cf.createContext("joao", "pedro");) {
 			JMSProducer mp = jcontext.createProducer();
 			mp.send(t, textToSend);	
 		} catch (JMSRuntimeException re) {
 			error = true;
-//			re.printStackTrace();
+			re.printStackTrace();
 		}
 	}
 
+	// **** Getters e Setters ****
+	
 	public boolean isError() {
 		return error;
 	}

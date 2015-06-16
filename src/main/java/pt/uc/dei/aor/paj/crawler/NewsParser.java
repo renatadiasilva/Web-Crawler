@@ -1,15 +1,10 @@
 package pt.uc.dei.aor.paj.crawler;
 
-import java.io.StringWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -25,9 +20,6 @@ public class NewsParser {
 
 	// Variaveis JSOUP
 	private static Document document;
-	//	private static String maindiv = "div.column";
-	//	private static String artigo = "article";
-	//	private static String headlineNoticia = "h3.cd__headline";
 
 	// variaveis criacao noticia Jsoup
 	private static String seccaoString = "body-text";
@@ -39,11 +31,10 @@ public class NewsParser {
 	private static String imgString = "img.media__image";
 
 	// variaveis JAXB
-//	private static JAXBContext jaxbcontext;
-	//	private JAXBElement<Object> objectWrapper;
 	private static NoticiasType noticiasType;
 	private static ArrayList<String> listaLinks = new ArrayList<String>();
 
+	// faz o crawling
 	public NoticiasType doCrawler() {
 		noticiasType = new NoticiasType();
 		getLinks();
@@ -62,6 +53,7 @@ public class NewsParser {
 		return null;
 	}
 
+	// links
 	private static void getLinks() {
 		try {
 			// obter documento html
@@ -88,6 +80,7 @@ public class NewsParser {
 		}
 	}
 
+	// constroi objeto Noticias
 	private static NoticiaType constroiNoticia(String link) {
 		// cria noticias
 		NoticiaType n = new NoticiaType();
@@ -172,8 +165,7 @@ public class NewsParser {
 		return n;
 	}
 	
-	/////////////////////////////////////////////////////////
-	
+	//set date
 	private static XMLGregorianCalendar stringToXMLGregorianCalendar(String s) throws ParseException, DatatypeConfigurationException{
 		XMLGregorianCalendar result = null;
 		Date date;
@@ -189,10 +181,12 @@ public class NewsParser {
 		return result;
 	}
 	
-	private static String stringDateConvert(String date){
+
+	// date format CNN: Updated 1657 GMT (2357 HKT) June 12, 2015
+	private static String stringDateConvert(String date) {
 		
-//		Updated 1657 GMT (2357 HKT) June 12, 2015
-		String [] datas = date.split("\\s+");    //divide a string pelos espacos em branco
+	    //divide a string pelos espacos em branco
+		String [] datas = date.split("\\s+");
 		String month = "";
 		if(datas[5].equals("January"))month="01";
 		if(datas[5].equals("February"))month="02";
@@ -207,7 +201,8 @@ public class NewsParser {
 		if(datas[5].equals("November"))month="11";
 		if(datas[5].equals("December"))month="12";
 		
-		String datafinal = datas[7]+"-"+month+"-"+datas[6].substring(0,datas[6].length()-1)+"T"+datas[1].substring(0, 2)+":"+datas[1].substring(2)+":00";
+		String datafinal = datas[7]+"-"+month+"-"+datas[6].substring(0,datas[6].length()-1)+"T"+
+				datas[1].substring(0, 2)+":"+datas[1].substring(2)+":00";
 		
 		return datafinal;
 	}

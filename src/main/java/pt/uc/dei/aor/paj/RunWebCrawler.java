@@ -20,6 +20,7 @@ import pt.uc.dei.aor.paj.data.*;
 
 public class RunWebCrawler {
 
+	// MAIN
 	public static void main(String[] args) throws Exception {
 
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -41,7 +42,7 @@ public class RunWebCrawler {
 				tryToSend(1, filePathDir);
 			}
 
-			//chamar o parser -> dá origem ao XML
+			//chamar o parser
 			NewsParser c = new NewsParser();
 			System.out.println("Começando o parser.");
 			NoticiasType noticias = c.doCrawler();
@@ -61,14 +62,15 @@ public class RunWebCrawler {
 			//envia info para o topic
 			tryToSend(2, filename);
 
+			//termina ou continua
 			System.out.print("1- continua; 2 - termina? ");
 			String answer = reader.readLine();
 
 			if (answer.equals("2")) {
-				// terminar subscribers
+				// termina subscribers
 				p.publish("stop");
 
-				// terminar publisher				
+				// termina publisher				
 				System.out.println("Exiting...");
 				reader.close();
 				System.out.println("Goodbye!");
@@ -78,6 +80,7 @@ public class RunWebCrawler {
 
 	}
 
+	// cria nome de ficheiro
 	public static String outputNameFile(String dir, String name) {
 
 		Calendar now = new GregorianCalendar();
@@ -94,6 +97,7 @@ public class RunWebCrawler {
 
 	}
 
+	// envia para o JMS, tentando durante algum tempo
 	public static void tryToSend(int tag, String filePath) {
 
 		try {
@@ -147,6 +151,7 @@ public class RunWebCrawler {
 
 	}
 
+	//muda ficheiro de diretoria
 	private static boolean moveFile(String filePath, String newName, String newDir) {
 	
 		try{
