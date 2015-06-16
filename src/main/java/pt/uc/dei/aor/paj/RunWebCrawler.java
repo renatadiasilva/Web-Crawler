@@ -154,8 +154,6 @@ public class RunWebCrawler {
 	//muda ficheiro de diretoria
 	private static boolean moveFile(String filePath, String newName, String newDir) {
 	
-		final Logger log = LoggerFactory.getLogger(TransformXML.class);
-
 		try{
  
 			File file = new File(filePath);
@@ -164,7 +162,7 @@ public class RunWebCrawler {
 				return true;
 
 		} catch(Exception e) {
-			log.error("Error: "+e.getMessage());
+			e.printStackTrace();
 		}
 		
 		return false;
