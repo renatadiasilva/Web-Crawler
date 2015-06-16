@@ -39,17 +39,13 @@ public class NewsParser {
 	private static String imgString = "img.media__image";
 
 	// variaveis JAXB
-	private static JAXBContext jaxbcontext;
 	//	private JAXBElement<Object> objectWrapper;
-	private static String generatedXml;
 	private static NoticiasType noticiasType;
 	private static ArrayList<String> listaLinks = new ArrayList<String>();
 
 	public NoticiasType doCrawler() {
 		noticiasType = new NoticiasType();
 		getLinks();
-//		for (String s : listaLinks)
-//			System.out.println(s);
 
 		try {
 			for (String s : listaLinks) {
@@ -57,14 +53,11 @@ public class NewsParser {
 				NoticiaType n = constroiNoticia(s);
 				noticiasType.getNoticia().add(n);
 			}
-			// escrever XML
-//			System.out.println(noticiasType);
 			
 			return noticiasType;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-//		System.out.println(generatedXml);
 		return null;
 	}
 
@@ -92,27 +85,6 @@ public class NewsParser {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	private static void writeXml(NoticiasType noticiasType) {
-		StringWriter sw = new StringWriter();
-		try {
-			jaxbcontext = JAXBContext.newInstance(ObjectFactory.class);
-			// fazer marshall das noticias
-			Marshaller criaNoticias = jaxbcontext.createMarshaller();
-			// propriedades do marshaller
-			criaNoticias.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT,
-					Boolean.TRUE);
-			criaNoticias.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
-			JAXBElement<NoticiasType> elemento = new ObjectFactory()
-			.createNoticias(noticiasType);
-			criaNoticias.marshal(elemento, sw);
-			// colocar xml em string na variavel
-			generatedXml = sw.toString();
-		} catch (JAXBException e) {
-			e.printStackTrace();
-		}
-
 	}
 
 	private static NoticiaType constroiNoticia(String link) {
@@ -213,7 +185,7 @@ public class NewsParser {
 	private static String stringDateConvert(String date){
 		
 //		Updated 1657 GMT (2357 HKT) June 12, 2015
-		String [] datas = date.split("\\s+");    //divide a string pelos espa�os em branco
+		String [] datas = date.split("\\s+");    //divide a string pelos espacos em branco
 		String month = "";
 		if(datas[5].equals("January"))month="01";
 		if(datas[5].equals("February"))month="02";

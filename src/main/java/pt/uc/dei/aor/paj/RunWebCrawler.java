@@ -26,17 +26,13 @@ public class RunWebCrawler {
 			NewsParser c = new NewsParser();
 			NoticiasType noticias = c.doCrawler();
 
-			System.out.println("TESTE!!!!!!!!!!!!!!!!!! - RunCrawler");
-			
-			
 			String filename = "output.xml";
 			//passa para XML
 			try {
 				filename = outputNameFile();
 				JAXBHandler.marshal(noticias, new File (filename));
-				System.out.println("Marshall ok");//RETIRAR
+				System.out.println("Marshall feito");
 			} catch (IOException | JAXBException e) {
-				System.out.println("Não está a fazer Marshall!!!!!");
 				System.out.println(e.getMessage());
 				e.printStackTrace();
 				System.exit(1);
@@ -46,9 +42,7 @@ public class RunWebCrawler {
 			String stringXML = TransformXML.convertXMLFileToString(filename);
 			System.out.println("XML transformado em String.");
 			
-//			System.out.println(stringXML);
-
-			//passar xml ou a string como argumento
+			//passar string para o topic
 			p.publish(stringXML);
 			System.out.println("Mensagem Enviada.");
 			
@@ -67,7 +61,6 @@ public class RunWebCrawler {
 			}
 		}
 
-		// para stats é igual
 	}
 	
 	public static String outputNameFile() {
