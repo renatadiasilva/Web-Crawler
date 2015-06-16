@@ -88,6 +88,9 @@ public class NoticiaType {
     @XmlElement(required = false)
     @XmlSchemaType(name = "anyURI")
     protected String mediaurl;
+    @XmlElement(required = false)
+    @XmlSchemaType(name = "anyURI")
+    protected String videourl;
     @XmlAttribute(name = "local")
     protected String local;
 
@@ -257,6 +260,30 @@ public class NoticiaType {
      */
     public void setMediaurl(String value) {
         this.mediaurl = value;
+    }
+    
+    /**
+     * Gets the value of the videourl property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getVideourl() {
+        return videourl;
+    }
+
+    /**
+     * Sets the value of the videourl property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setVideourl(String value) {
+        this.videourl = value;
     }
 
     /**

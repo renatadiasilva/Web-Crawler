@@ -8,6 +8,7 @@
 		<highlights>bla bla bla</highlights>
 		<texto>Text</texto>
 		<mediaurl>http://img.jpg</mediaurl>
+		<videourl>http://video.cnn</videourl>
 	</noticia>
 	<noticia local="asia">
 		<url>http://www.site.com</url>
@@ -17,5 +18,6 @@
 		<highlights>bla bla bla</highlights>
 		<texto>Text</texto>
 		<mediaurl>http://img.jpg</mediaurl>
+		<videourl>http://video.cnn</videourl>
 	</noticia>
 </noticias>
