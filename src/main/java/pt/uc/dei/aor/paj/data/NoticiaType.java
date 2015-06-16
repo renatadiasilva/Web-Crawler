@@ -89,8 +89,6 @@ public class NoticiaType {
     @XmlElement(required = false)
     @XmlSchemaType(name = "anyURI")
     protected String mediaurl;
-    @XmlAttribute(name = "id")
-    protected Byte id;
     @XmlAttribute(name = "local")
     protected String local;
 
@@ -260,30 +258,6 @@ public class NoticiaType {
      */
     public void setMediaurl(String value) {
         this.mediaurl = value;
-    }
-
-    /**
-     * Gets the value of the id property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Byte }
-     *     
-     */
-    public Byte getId() {
-        return id;
-    }
-
-    /**
-     * Sets the value of the id property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Byte }
-     *     
-     */
-    public void setId(Byte value) {
-        this.id = value;
     }
 
     /**

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<noticias>
+	<noticia local="us">
+		<url>http://www.site.com</url>
+		<titulo>Title</titulo>
+		<data>Date</data>
+		<autor>Autor</autor>
+		<highlights>bla bla bla</highlights>
+		<texto>Text</texto>
+		<mediaurl>http://img.jpg</mediaurl>
+	</noticia>
+	<noticia local="asia">
+		<url>http://www.site.com</url>
+		<titulo>Title</titulo>
+		<data>Date</data>
+		<autor>Autor</autor>
+		<highlights>bla bla bla</highlights>
+		<texto>Text</texto>
+		<mediaurl>http://img.jpg</mediaurl>
+	</noticia>
+</noticias>
