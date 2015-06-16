@@ -132,7 +132,7 @@ public class NewsParser {
 			} else if (link.contains("/americas/")) {
 				n.setLocal("americas");
 			}
-			// url photo ou video
+			// url photo
 			Element media = doc.getElementById("large-media");
 			if (media != null) {
 				Element imgUrlElement = media.select(imgString).first();
@@ -145,6 +145,18 @@ public class NewsParser {
 						imgUrl = imgUrlElement.attr("src");
 					}
 					n.setMediaurl(imgUrl);
+				}
+			}
+			// url video
+			for (Element meta : doc.select("meta")) {
+				String key = meta.attr("itemprop");
+				String value = meta.attr("content");
+				switch (key) {
+				case "url":
+					if (value.endsWith(".cnn")) {
+						n.setVideourl(value);
+					}
+					break;
 				}
 			}
 

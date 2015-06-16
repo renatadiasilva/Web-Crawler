@@ -66,7 +66,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "autor",
     "highlights",
     "texto",
-    "mediaurl"
+    "mediaurl",
+    "videourl"
 })
 @XmlRootElement(name = "noticia")
 public class NoticiaType {
