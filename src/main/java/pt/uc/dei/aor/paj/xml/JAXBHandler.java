@@ -18,8 +18,7 @@ public class JAXBHandler {
 	// Export
 	public static void marshal(NoticiasType news, File selectedFile)
 			throws IOException, JAXBException {
-
-		JAXBContext context;
+        JAXBContext context;
         BufferedWriter writer = null;
         writer = new BufferedWriter(new FileWriter(selectedFile));
         context = JAXBContext.newInstance(NoticiasType.class);

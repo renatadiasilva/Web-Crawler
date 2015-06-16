@@ -14,9 +14,6 @@ import java.util.stream.Collectors;
 
 import javax.xml.bind.JAXBException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import pt.uc.dei.aor.paj.crawler.*;
 import pt.uc.dei.aor.paj.xml.*;
 import pt.uc.dei.aor.paj.data.*;
@@ -25,8 +22,6 @@ public class RunWebCrawler {
 
 	// MAIN
 	public static void main(String[] args) throws Exception {
-
-		final Logger log = LoggerFactory.getLogger(TransformXML.class);
 
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		Boolean stop = false;
@@ -51,7 +46,6 @@ public class RunWebCrawler {
 			NewsParser c = new NewsParser();
 			System.out.println("Começando o parser.");
 			NoticiasType noticias = c.doCrawler();
-			if (c.isError()) System.exit(1);
 			System.out.println("Parser feito.");
 
 			String filename = "output.xml";
@@ -61,7 +55,7 @@ public class RunWebCrawler {
 				JAXBHandler.marshal(noticias, new File (filename));
 				System.out.println("Marshall feito.");
 			} catch (IOException | JAXBException e) {
-				log.error("Error: "+e.getMessage());
+				e.printStackTrace();
 				System.exit(1);
 			}
 
@@ -105,8 +99,6 @@ public class RunWebCrawler {
 
 	// envia para o JMS, tentando durante algum tempo
 	public static void tryToSend(int tag, String filePath) {
-
-		final Logger log = LoggerFactory.getLogger(TransformXML.class);
 
 		try {
 
@@ -152,9 +144,9 @@ public class RunWebCrawler {
 			}
 
 		} catch (InterruptedException e) {
-			log.error("Error: "+e.getMessage());
+			e.printStackTrace();
 		} catch (Exception e) {
-			log.error("Error: "+e.getMessage());
+			e.printStackTrace();
 		}
 
 	}

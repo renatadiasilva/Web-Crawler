@@ -8,15 +8,8 @@ import javax.jms.Topic;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import pt.uc.dei.aor.paj.xml.TransformXML;
-
 public class Publisher {
 	
-	private static final Logger log = LoggerFactory.getLogger(TransformXML.class);
-
 	private ConnectionFactory cf;
 	private Topic t;
 	
@@ -29,7 +22,7 @@ public class Publisher {
 			this.t = InitialContext.doLookup("jms/topic/PlayTopic");
 		} catch (NamingException e) {
 			error = true;
-			log.error("Error: "+e.getMessage());
+			e.printStackTrace();
 		}
 	}
 
@@ -40,7 +33,7 @@ public class Publisher {
 			mp.send(t, textToSend);	
 		} catch (JMSRuntimeException re) {
 			error = true;
-			log.error("Error: "+re.getMessage());
+			re.printStackTrace();
 		}
 	}
 
