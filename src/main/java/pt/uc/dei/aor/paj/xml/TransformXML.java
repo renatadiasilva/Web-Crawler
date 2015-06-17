@@ -16,7 +16,7 @@ public class TransformXML {
 	//XML to String
 	public static String convertXMLFileToString(String fileName) 
 	{ 
-		try{ 
+		try { 
 			DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance(); 
 			InputStream inputStream = new FileInputStream(new File(fileName)); 
 			org.w3c.dom.Document doc = documentBuilderFactory.newDocumentBuilder().parse(inputStream); 
@@ -26,7 +26,7 @@ public class TransformXML {
 			return stw.toString(); 
 		} 
 		catch (Exception e) { 
-			e.printStackTrace(); 
+            System.out.println("TransformXML Error: "+e.getMessage());
 		} 
 		return null; 
 	}

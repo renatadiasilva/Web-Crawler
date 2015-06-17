@@ -24,11 +24,11 @@ public class RunWebCrawler {
 	public static void main(String[] args) throws Exception {
 
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-		Boolean stop = false;
+		Boolean quit = false;
 
 		Publisher p = new Publisher();
 
-		while (!stop) {
+		while (!quit) {
 
 			//verifica se há ficheiros a enviar na diretoria log-files
 			List<File> filesInFolder = Files.walk(Paths.get("../src/main/resources/log-files"))
@@ -44,26 +44,34 @@ public class RunWebCrawler {
 
 			//chamar o parser
 			NewsParser c = new NewsParser();
-			System.out.println("Começando o parser.");
+			System.out.println("Starting News Crawling.");
 			NoticiasType noticias = c.doCrawler();
-			System.out.println("Parser feito.");
 
-			String filename = "output.xml";
-			//passa para XML
-			try {
-				filename = outputNameFile("sent-files", "output");
-				JAXBHandler.marshal(noticias, new File (filename));
-				System.out.println("Marshall feito.");
-			} catch (IOException | JAXBException e) {
-				e.printStackTrace();
-				System.exit(1);
+			if (c.isErro()) {
+				System.out.println("Failure in Crawling (possible bad network connection).");
+				System.out.println("No message will be sent.");
+			}
+			else {
+				System.out.println("News Crawling done.");
+
+				String filename = "output.xml";
+				//passa para XML
+				try {
+					filename = outputNameFile("sent-files", "output");
+					JAXBHandler.marshal(noticias, new File (filename));
+					System.out.println("Marshall done.");
+				} catch (IOException | JAXBException e) {
+					System.out.println("Marshall failed.");
+					System.out.println("RunWebCrawler Error: "+e.getMessage());
+				}
+
+				//envia info para o topic
+				tryToSend(2, filename);
+
 			}
 
-			//envia info para o topic
-			tryToSend(2, filename);
-
 			//termina ou continua
-			System.out.print("1- continua; 2 - termina? ");
+			System.out.print("1- continue; 2- quit? ");
 			String answer = reader.readLine();
 
 			if (answer.equals("2")) {
@@ -74,7 +82,7 @@ public class RunWebCrawler {
 				System.out.println("Exiting...");
 				reader.close();
 				System.out.println("Goodbye!");
-				stop = true;
+				quit = true;
 			}
 		}
 
@@ -105,7 +113,7 @@ public class RunWebCrawler {
 
 			//passar XML para String
 			String stringXML = TransformXML.convertXMLFileToString(filePath);
-			System.out.println("XML transformado em String.");
+			System.out.println("XML converted into String.");
 
 			//passar String para o topic
 			Publisher p = new Publisher();
@@ -114,58 +122,58 @@ public class RunWebCrawler {
 			//repete durante 10 segundos tentativa de publicar no topic se falhar
 			int times = 0;
 			while ((p.isError()) && (times < 9)) {
-				System.out.println("XML Não Enviado.");
+				System.out.println("XML not published.");
 				Thread.sleep(1000);
 				p.setError(false);
-				System.out.println("Tentando enviar de novo o XML (Tentativa "+(times+2)+").");
+				System.out.println("Trying to publish XML ("+(times+2)+").");
 				p.publish(stringXML);
 				times++;
 			}
 
 			if (p.isError()) {
-				System.out.println("XML Não Enviado (Timeout).");
+				System.out.println("XML not published (Timeout).");
 
 				//guardar info não enviada (se é publish normal)
 				if (tag == 2) {
 					//move ficheiro para log-files (muda nome para log)
 					if (moveFile(filePath,"log","log-files"))
-						System.out.println("Info não enviada guardada na diretoria LOG-FILES.");
-					else System.out.println("Erro ao mover ficheiro XML não enviado.");
-				} else System.out.println(filePath+" mantém-se na diretoria log-files.");
+						System.out.println("XML not sent saved in folder LOG-FILES.");
+					else System.out.println("Error moving XML file.");
+				} else System.out.println("XML file kept in folder LOG-FILES.");
 			} else {
-				System.out.println("XML Enviado.");
+				System.out.println("XML sent.");
 
 				//guardar info enviada (se é re-publish)
 				if (tag == 1) {
 					//move ficheiro para sent-files (muda nome para output)
 					if (moveFile(filePath, "output", "sent-files"))
-						System.out.println("Ficheiro enviado guardado na diretoria SENT-FILES.");
-					else System.out.println("Erro ao mover ficheiro XML enviado.");
-				} else System.out.println(filePath+" guardado na diretoria sent-files.");
+						System.out.println("XML sent saved in folder SENT-FILES.");
+					else System.out.println("Error moving XML file.");
+				} else System.out.println("XML file kept in folder SENT-FILES.");
 			}
 
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+		} catch (InterruptedException ie) {
+			System.out.println("RunWebCrawler.tryToSend Error: "+ie.getMessage());
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println("RunWebCrawler.tryToSend Error: "+e.getMessage());
 		}
 
 	}
 
 	//muda ficheiro de diretoria
 	private static boolean moveFile(String filePath, String newName, String newDir) {
-	
+
 		try{
- 
+
 			File file = new File(filePath);
-					
+
 			if(file.renameTo(new File(outputNameFile(newDir, newName))))
 				return true;
 
 		} catch(Exception e) {
-			e.printStackTrace();
+			System.out.println("RunWebCrawler.modeFile Error: "+e.getMessage());
 		}
-		
+
 		return false;
 	}
 

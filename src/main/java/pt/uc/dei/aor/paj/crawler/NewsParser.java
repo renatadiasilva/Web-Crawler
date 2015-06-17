@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
+
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -34,8 +35,12 @@ public class NewsParser {
 	private static NoticiasType noticiasType;
 	private static ArrayList<String> listaLinks = new ArrayList<String>();
 
+	// identifica erro
+	private static boolean erro;
+	
 	// faz o crawling
 	public NoticiasType doCrawler() {
+		erro = false;
 		noticiasType = new NoticiasType();
 		getLinks();
 
@@ -48,7 +53,8 @@ public class NewsParser {
 			
 			return noticiasType;
 		} catch (Exception e) {
-			e.printStackTrace();
+            System.out.println("NewsParser.doCrawler Error: "+e.getMessage());
+            erro = true;
 		}
 		return null;
 	}
@@ -76,7 +82,8 @@ public class NewsParser {
 				}
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			erro = true;
+            System.out.println("NewsParser.getLinks Error: "+e.getMessage());
 		}
 	}
 
@@ -172,25 +179,38 @@ public class NewsParser {
 			}
 
 		} catch (Exception e2) {
-			e2.printStackTrace();
+			erro = true;
+            System.out.println("NewsParser.constroiNoticia Error: "+e2.getMessage());
 		}
 		return n;
 	}
 	
 	//set date
-	private static XMLGregorianCalendar stringToXMLGregorianCalendar(String s) throws ParseException, DatatypeConfigurationException{
-		XMLGregorianCalendar result = null;
-		Date date;
-		SimpleDateFormat simpleDateFormat;
-		GregorianCalendar gregorianCalendar;
+	private static XMLGregorianCalendar stringToXMLGregorianCalendar(String s) {
 
-		simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-		date = simpleDateFormat.parse(s);        
-		gregorianCalendar = 
-				(GregorianCalendar)GregorianCalendar.getInstance();
-		gregorianCalendar.setTime(date);
-		result = DatatypeFactory.newInstance().newXMLGregorianCalendar(gregorianCalendar);
-		return result;
+		try
+		{
+			XMLGregorianCalendar result = null;
+			Date date;
+			SimpleDateFormat simpleDateFormat;
+			GregorianCalendar gregorianCalendar;
+
+			simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+			date = simpleDateFormat.parse(s);        
+			gregorianCalendar = 
+					(GregorianCalendar)GregorianCalendar.getInstance();
+			gregorianCalendar.setTime(date);
+			result = DatatypeFactory.newInstance().newXMLGregorianCalendar(gregorianCalendar);
+			return result;
+		} catch (ParseException pe) {
+			erro = true;
+			System.out.println("NewsParser.XMLGregorianCalendar Error: "+pe.getMessage());			
+		} catch (DatatypeConfigurationException e) {
+			erro = true;
+			System.out.println("NewsParser.XMLGregorianCalendar Error: "+e.getMessage());			
+		}
+		
+		return null;
 	}
 	
 
@@ -218,4 +238,9 @@ public class NewsParser {
 		
 		return datafinal;
 	}
+
+	public boolean isErro() {
+		return erro;
+	}
+
 }

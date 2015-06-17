@@ -22,7 +22,7 @@ public class Publisher {
 			this.t = InitialContext.doLookup("jms/topic/PlayTopic");
 		} catch (NamingException e) {
 			error = true;
-			e.printStackTrace();
+            System.out.println("Publisher Error: "+e.getMessage());
 		}
 	}
 
@@ -33,7 +33,7 @@ public class Publisher {
 			mp.send(t, textToSend);	
 		} catch (JMSRuntimeException re) {
 			error = true;
-			re.printStackTrace();
+            System.out.println("Publisher.publish Error: "+re.getMessage());
 		}
 	}
 
